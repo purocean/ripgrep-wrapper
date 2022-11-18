@@ -1,6 +1,6 @@
 {
   "name": "ripgrep-wrapper",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A wrapper around Ripgrep that allows for use in node.",
   "repository": "git@github.com:purocean/ripgrep-wrapper.git",
   "author": "purocean <purocean@gmail.com>",

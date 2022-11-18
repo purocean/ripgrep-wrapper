@@ -1,0 +1,41 @@
+{
+  "name": "ripgrep-wrapper",
+  "version": "0.0.0",
+  "description": "A wrapper around Ripgrep that allows for use in node.",
+  "repository": "git@github.com:purocean/ripgrep-wrapper.git",
+  "author": "purocean <purocean@gmail.com>",
+  "license": "MIT",
+  "keywords": [],
+  "homepage": "https://github.com/purocean/ripgrep-wrapper",
+  "main": "./lib/bundle.cjs.js",
+  "module": "./lib/bundle.esm.js",
+  "files": [
+    "*.md",
+    "lib",
+    "types"
+  ],
+  "types": "./types/index.d.ts",
+  "scripts": {
+    "build": "rm -r lib/* types/*; yarn run rollup -c --bundleConfigAsCjs",
+    "lint": "yarn run eslint '{src,__tests__}/**/*.{js,ts,tsx,vue}'",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "prepublish": "yarn run build"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.2.1",
+    "conventional-changelog-cli": "^2.2.2",
+    "eslint": "^7.32.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "rollup": "^3.3.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "rollup-plugin-visualizer": "^5.8.3",
+    "typescript": "^4.9.0"
+  },
+  "dependencies": {
+    "@vscode/ripgrep": "^1.14.2",
+    "vscode-regexpp": "^3.1.0"
+  }
+}

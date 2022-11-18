@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "module": "ESNext",
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "declaration": true,
+    "declarationDir": "types",
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "useUnknownInCatchVariables": false,
+    "outDir": "lib",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "strictNullChecks": true,
+    "strict": false,
+    "strictFunctionTypes": false,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "typeRoots": ["node_modules/@types", "types"],
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "paths": {
+      "@/*": ["src/*", "types/src/*"],
+      "vs/*": ["vscode/src/vs/*", "types/vscode/src/vs/*"]
+    },
+  },
+  "exclude": ["node_modules", "lib"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "global.d.ts"],
+  "compileOnSave": false
+}

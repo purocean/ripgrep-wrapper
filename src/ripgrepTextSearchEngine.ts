@@ -8,7 +8,6 @@ import { EventEmitter } from 'events';
 import { StringDecoder } from 'string_decoder';
 import * as path from 'node:path';
 import { AST as ReAST, RegExpParser, RegExpVisitor } from 'vscode-regexpp';
-import { rgPath } from '@vscode/ripgrep';
 import { anchorGlob, createTextSearchResult, IOutputChannel, Maybe } from './ripgrepSearchUtils';
 import { IExtendedExtensionSearchOptions, ISearchRange, ISerializedSearchSuccess, ITextSearchResult, Progress, SearchError, SearchErrorCode, serializeSearchError, TextSearchContext, TextSearchMatch, TextSearchOptions, TextSearchPreviewOptions, TextSearchProvider, TextSearchQuery } from './search'
 import { CancellationToken } from './cancellation'
@@ -16,12 +15,9 @@ import { coalesce, groupBy } from './utils'
 import { createRegExp, escapeRegExpCharacters } from './strings'
 import { splitGlobAware } from './glob'
 
-// If @vscode/ripgrep is in an .asar file, then the binary is unpacked.
-const rgDiskPath = rgPath.replace(/\bnode_modules\.asar\b/, 'node_modules.asar.unpacked');
-
 export class RipgrepTextSearchEngine implements TextSearchProvider {
 
-  constructor(private outputChannel: IOutputChannel) { }
+  constructor(private rgDiskPath: string, private outputChannel: IOutputChannel) { }
 
   provideTextSearchResults(query: TextSearchQuery, options: TextSearchOptions, progress: Progress<ITextSearchResult>, token: CancellationToken): Promise<ISerializedSearchSuccess> {
     this.outputChannel.appendLine(`provideTextSearchResults ${query.pattern}, ${JSON.stringify({
@@ -41,9 +37,9 @@ export class RipgrepTextSearchEngine implements TextSearchProvider {
       const escapedArgs = rgArgs
         .map(arg => arg.match(/^-/) ? arg : `'${arg}'`)
         .join(' ');
-      this.outputChannel.appendLine(`${rgDiskPath} ${escapedArgs}\n - cwd: ${cwd}`);
+      this.outputChannel.appendLine(`${this.rgDiskPath} ${escapedArgs}\n - cwd: ${cwd}`);
 
-      let rgProc: Maybe<cp.ChildProcess> = cp.spawn(rgDiskPath, rgArgs, { cwd });
+      let rgProc: Maybe<cp.ChildProcess> = cp.spawn(this.rgDiskPath, rgArgs, { cwd });
       rgProc.on('error', e => {
         console.error(e);
         this.outputChannel.appendLine('Error: ' + (e && e.message));

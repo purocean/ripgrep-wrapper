@@ -53,7 +53,7 @@ export class NativeTextSearchManager extends TextSearchManager {
 
 export class TextSearchEngineAdapter {
 
-  constructor(private query: ITextQuery) { }
+  constructor(private rgPath: string, private query: ITextQuery) { }
 
   search(token: CancellationToken, onResult: (matches: ISerializedFileMatch[]) => void, onMessage: (message: IProgressMessage) => void): Promise<ISerializedSearchSuccess> {
     if ((!this.query.folderQueries || !this.query.folderQueries.length) && (!this.query.extraFilePaths || !this.query.extraFilePaths.length)) {
@@ -68,7 +68,7 @@ export class TextSearchEngineAdapter {
       }
     };
 
-    const textSearchManager = new NativeTextSearchManager(this.query, new RipgrepTextSearchEngine(pretendOutputChannel));
+    const textSearchManager = new NativeTextSearchManager(this.query, new RipgrepTextSearchEngine(this.rgPath, pretendOutputChannel));
     return new Promise((resolve, reject) => {
       return textSearchManager
         .search(

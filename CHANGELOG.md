@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/purocean/ripgrep-wrapper/compare/v1.1.0...v1.1.1) (2022-11-20)
+
+
+### Bug Fixes
+
+* fix merge result ([36f2689](https://github.com/purocean/ripgrep-wrapper/commit/36f2689717053e618632ecc7d842f28dc35e3e60))
+
+
+
 # [1.1.0](https://github.com/purocean/ripgrep-wrapper/compare/v1.0.0...v1.1.0) (2022-11-18)
 
 

@@ -206,7 +206,6 @@ export class TextSearchResultsCollector {
   private _batchedCollector: BatchedCollector<IFileMatch>;
 
   private _currentFolderIdx: number = -1;
-  private _currentUri: string | undefined;
   private _currentFileMatch: IFileMatch | null = null;
 
   constructor(private _onResult: (result: IFileMatch[]) => void) {
@@ -217,7 +216,7 @@ export class TextSearchResultsCollector {
     // Collects TextSearchResults into IInternalFileMatches and collates using BatchedCollector.
     // This is efficient for ripgrep which sends results back one file at a time. It wouldn't be efficient for other search
     // providers that send results in random order. We could do this step afterwards instead.
-    if (this._currentFileMatch && (this._currentFolderIdx !== folderIdx || this._currentUri !== data.path)) {
+    if (this._currentFileMatch && (this._currentFolderIdx !== folderIdx || this._currentFileMatch.path !== data.path)) {
       this.pushToCollector();
       this._currentFileMatch = null;
     }
